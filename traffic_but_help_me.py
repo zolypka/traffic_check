@@ -4,9 +4,7 @@ import psutil
 from prettytable import PrettyTable
 from prettytable import DOUBLE_BORDER
 
-# rest of the code stays the same
 
-# Function to create a table
 def create_table(process_list, limit) -> str:
     x = PrettyTable()
     x.field_names = ["Process ID", "Process Name", "Sent", "Received", "Sent/s", "Recv/s"]
@@ -22,7 +20,6 @@ def create_table(process_list, limit) -> str:
     return x.get_string()
 
 
-# Function to get process stats
 def get_process_stats() -> list:
     connections = psutil.net_connections(kind='inet')
     process_stats = {}
@@ -55,12 +52,11 @@ def main():
             time.sleep(1)
             os.system('cls')
             process_stats = get_process_stats()
-            table = create_table(process_stats, 5)  # Display stats for only 5 processes
+            table = create_table(process_stats, 5)  
             print(table)
             time.sleep(1)
     except KeyboardInterrupt:
         print("\nProgram terminated.")
 
-# Run the program
 if __name__ == '__main__':
     main()

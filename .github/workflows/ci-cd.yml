@@ -32,4 +32,4 @@ jobs:
 
         docker build -t traffic_docker $PWD
       
-        docker run -it traffic_docker
+        docker run -t traffic_docker

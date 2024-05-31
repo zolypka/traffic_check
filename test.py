@@ -1,8 +1,7 @@
 import os
 import time
 import psutil
-from prettytable import PrettyTable
-from prettytable import DOUBLE_BORDER
+import prettytable
 from main import getSize, getProcessNetworkUsage
 
 def test_getSize():

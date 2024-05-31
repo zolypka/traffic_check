@@ -1,8 +1,7 @@
 import os
 import time
 import psutil
-from prettytable import PrettyTable
-from prettytable import DOUBLE_BORDER
+import prettytable
 
 size = ['bytes', 'KB', 'MB', 'GB', 'TB']
 

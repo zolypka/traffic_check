@@ -58,7 +58,6 @@ if __name__ == '__main__':
 
     while True:
         time.sleep(1)
-        os.system('clear')
         netStats2 = psutil.net_io_counters()
         uploadStat = netStats2.bytes_sent - dataSent
         downloadStat = netStats2.bytes_recv - dataRecv

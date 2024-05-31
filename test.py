@@ -3,7 +3,7 @@ import time
 import psutil
 from prettytable import PrettyTable
 from prettytable import DOUBLE_BORDER
-from traffic_but_help_me import getSize, getProcessNetworkUsage
+from main import getSize, getProcessNetworkUsage
 
 def test_getSize():
     assert getSize(1023) == '1023.0bytes'

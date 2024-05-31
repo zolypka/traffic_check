@@ -1,6 +1,5 @@
 import os
 import time
-
 import psutil
 from prettytable import PrettyTable
 import prettytable
@@ -37,7 +36,7 @@ def getProcessNetworkUsage():
 def printData(networkUsage):
 
     card = PrettyTable()
-    card.set_style(DOUBLE_BORDER)
+    card.set_style(prettytable.PLAIN_COLUMNS)
     card.field_names = ["Process", "Received", "Receiving", "Sent", 'Sending']
 
     sorted_processes = sorted(networkUsage.items(), key=lambda x: sum([x[1].bytes_sent, x[1].bytes_recv]), reverse=True)

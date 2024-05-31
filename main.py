@@ -1,7 +1,10 @@
 import os
 import time
+
 import psutil
+from prettytable import PrettyTable
 import prettytable
+
 
 size = ['bytes', 'KB', 'MB', 'GB', 'TB']
 

@@ -5,13 +5,12 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  test:
+  build-and-push:
     runs-on: ubuntu-latest
 
     permissions:
       contents: read
       packages: write
-      attestations: write
       id-token: write
 
     steps:
@@ -32,32 +31,17 @@ jobs:
       run: |
         pytest test.py
 
-    - name: Build Docker image
-      run: |
-        docker build -t traffic_analyzer .
-
-    - name: Log in to the Container registry
-      uses: docker/login-action@v1
+    - name: Log in to the GitHub Container registry
+      uses: docker/login-action@v2
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v3
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
-    - name: Build and push Docker image
-      id: push
-      uses: docker/build-push-action@v3
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-
-    - name: Generate artifact attestation
+    - name: Build Docker image
       run: |
-        cosign attest --key ${GITHUB_WORKSPACE}/cosign.key --predicate <(cosign generate <attestation details>)> --type https://in-toto.io/Statement/v0.1 --digest ${{ steps.push.outputs.digest }} --output-file attestation.json
+        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+
+    - name: Push Docker image
+      run: |
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
